@@ -64,23 +64,19 @@ public class DominoGame {
 
 	                if (playedDomino != null) {
 	                    // Determine whether to add the domino to the head or tail of the table
-	                    if (table.getHeadValue() == currentHeadValue) {
-	                    	if(playedDomino.getSide1() == table.getHeadValue()) {	
+	                    if (table.getHeadValue() == currentHeadValue && playedDomino.getSide1() == table.getHeadValue()) {
 		                        playedDomino.swapValues(); // Swap if necessary to match the tail                    		
-	                    		table.addToTableEnd(playedDomino);
-	                    	}
-	                    	else {
 	                    		table.addToTableStart(playedDomino);
-	                    	}
-	                    } else if (table.getTailValue() == currentTailValue) {
-	                    	if(playedDomino.getSide2() == table.getTailValue()) {	                 		
-	                    		table.addToTableStart(playedDomino);
-	                    	}
-	                    	else {
-		                        playedDomino.swapValues(); // Swap if necessary to match the tail   
+	                    } else if (table.getTailValue() == currentTailValue && playedDomino.getSide2() == table.getTailValue()) {
+		                        playedDomino.swapValues(); // Swap if necessary to match the tail                		
 	                    		table.addToTableEnd(playedDomino);
-	                    	}
 	                    }
+						else if(table.getHeadValue() == currentTailValue && table.getHeadValue() == playedDomino.getSide2()){
+	                    		table.addToTableStart(playedDomino);
+						}
+						else{
+	                    		table.addToTableEnd(playedDomino);
+						}
 
 	                    System.out.println("Player played: " + playedDomino);
 	                    
