@@ -106,20 +106,18 @@ public class DominoGame {
 				// Player has placed all their pieces, they win
 				break;
 			}
-			if (maxPickCounter==100 || allDominoes.isEmpty()) {
-				break;
-			}
+			// if (maxPickCounter==100 || allDominoes.isEmpty()) {
+			// 	break;
+			// }
 		}
 		table.displayTable();
 
 		if (player1.getHandSize() == 0) {
 			System.out.println("Player 1 wins!");
 			System.out.println("Player 2's remaining pieces: " + player2.getHand());
-		} else if (player2.getHandSize() == 0) {
+		} else  {
 			System.out.println("Player 2 wins!");
 			System.out.println("Player 1's remaining pieces: " + player1.getHand());
-		} else {
-			System.out.println("Match Tie, max picks exceeded");
 		}
 	}
 }
