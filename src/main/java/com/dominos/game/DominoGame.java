@@ -81,7 +81,7 @@ public class DominoGame {
 					}
 
 					System.out.println("Player played: " + playedDomino);
-					table.displayTable();
+					// table.displayTable();
 
 					// Update the current head and tail values on the table
 					currentHeadValue = table.getHeadValue();
