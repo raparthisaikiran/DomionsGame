@@ -37,6 +37,8 @@ public class DominoGame {
 
 		// Put the remaining 8 pieces in available pieces
 		availablePieces.addAll(allDominoes);
+		List<CDomino> availablePiecesForEveryTurn = new ArrayList<>();
+		availablePiecesForEveryTurn.addAll(allDominoes);
 
 		// Determine the starting player randomly
 		CPlayer currentPlayer = randomizer.getRandomInt(0, 1) == 0 ? player1 : player2;
@@ -45,8 +47,6 @@ public class DominoGame {
 		while (true) {
 			int currentHeadValue = table.getHeadValue();
 			int currentTailValue = table.getTailValue();
-			List<CDomino> availablePiecesForEveryTurn = new ArrayList<>();
-			availablePiecesForEveryTurn.addAll(allDominoes);
 			String playerName = (currentPlayer == player1) ? "Player 1" : "Player 2"; // Switch players
 
 			System.out.println("Current " + playerName + " hand: " + currentPlayer.getHand());
@@ -64,6 +64,9 @@ public class DominoGame {
 				}
 
 				if (playedDomino != null) {
+					if (allDominoes.contains(playedDomino)) {
+						allDominoes.remove(allDominoes.indexOf(playedDomino));
+					}
 					// Determine whether to add the domino to the head or tail of the table
 					if (playedDomino.getSide1() == table.getHeadValue()) {
 						playedDomino.swapValues(); // Swap if necessary to match the tail
@@ -78,7 +81,7 @@ public class DominoGame {
 					}
 
 					System.out.println("Player played: " + playedDomino);
-					// table.displayTable();
+					table.displayTable();
 
 					// Update the current head and tail values on the table
 					currentHeadValue = table.getHeadValue();
@@ -93,6 +96,7 @@ public class DominoGame {
 					currentPlayer.addToHand(drawnDomino);
 					System.out.println(playerName + " drew: " + drawnDomino);
 				} else {
+					availablePiecesForEveryTurn.addAll(allDominoes);
 					System.out.println(playerName + " has no more available moves.");
 					currentPlayer = (currentPlayer == player1) ? player2 : player1; // Switch players
 				}
@@ -102,7 +106,7 @@ public class DominoGame {
 				// Player has placed all their pieces, they win
 				break;
 			}
-			if (maxPickCounter == 200) {
+			if (maxPickCounter==100 || allDominoes.isEmpty()) {
 				break;
 			}
 		}
